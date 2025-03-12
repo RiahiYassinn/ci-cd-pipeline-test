@@ -34,7 +34,6 @@ jobs:
           wget https://downloads.mongodb.com/compass/mongosh-2.2.5-linux-x64.tgz
           tar -xvzf mongosh-2.2.5-linux-x64.tgz
           sudo mv mongosh-2.2.5-linux-x64/bin/mongosh /usr/local/bin/mongosh
-          sudo mv mongosh-2.2.5-linux-x64/bin/mongocryptd-mongosh /usr/local/bin/mongocryptd-mongosh
           rm -rf mongosh-2.2.5-linux-x64.tgz mongosh-2.2.5-linux-x64
 
       - name: Install dependencies (Frontend)
