@@ -27,12 +27,15 @@ jobs:
         with:
           node-version: "18" # Use Node.js 18 or higher
 
-      - name: Install MongoDB Database Tools
+      - name: Install MongoDB Shell (mongosh)
         run: |
           sudo apt-get update
           sudo apt-get install -y wget
-          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
-          sudo apt-get install -y ./mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
+          wget https://downloads.mongodb.com/compass/mongosh-2.2.5-linux-x64.tgz
+          tar -xvzf mongosh-2.2.5-linux-x64.tgz
+          sudo mv mongosh-2.2.5-linux-x64/bin/mongosh /usr/local/bin/mongosh
+          sudo mv mongosh-2.2.5-linux-x64/bin/mongocryptd-mongosh /usr/local/bin/mongocryptd-mongosh
+          rm -rf mongosh-2.2.5-linux-x64.tgz mongosh-2.2.5-linux-x64
 
       - name: Install dependencies (Frontend)
         working-directory: ./frontend
@@ -59,7 +62,7 @@ jobs:
       - name: Verify MongoDB connection
         run: |
           echo "Testing MongoDB connection..."
-          mongo --eval 'db.runCommand({ ping: 1 })'
+          mongosh --eval 'db.runCommand({ ping: 1 })'
 
       - name: Run backend integration tests
         working-directory: ./backend
