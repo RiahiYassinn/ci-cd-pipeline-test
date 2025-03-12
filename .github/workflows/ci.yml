@@ -47,21 +47,26 @@ jobs:
         working-directory: ./backend
         run: npm install
 
-      # - name: Run frontend tests
-      #   working-directory: ./frontend
-      #   run: npm test
-
-      # - name: Run backend tests
-      #   working-directory: ./backend
-      #   run: npm test
-
-      # - name: Wait for MongoDB to be ready
-      #   run: sleep 10
-
       - name: Verify MongoDB connection
         run: |
           echo "Testing MongoDB connection..."
           mongosh --eval 'db.runCommand({ ping: 1 })'
+
+      - name: Run Linting (Frontend)
+        working-directory: ./frontend
+        run: npm run lint
+
+      # - name: Run frontend tests
+      #   working-directory: ./frontend
+      #   run: npm test
+
+      - name: Run Linting (Frontend)
+        working-directory: ./backend
+        run: npm run lint
+
+      # - name: Run backend tests
+      #   working-directory: ./backend
+      #   run: npm test
 
       # - name: Run backend integration tests
       #   working-directory: ./backend
