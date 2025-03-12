@@ -29,7 +29,10 @@ jobs:
 
       - name: Install dependencies (Frontend)
         working-directory: ./frontend
-        run: npm install
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install
 
       - name: Install dependencies (Backend)
         working-directory: ./backend
