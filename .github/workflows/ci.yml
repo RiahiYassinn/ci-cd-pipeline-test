@@ -25,12 +25,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22"
+          node-version: "18" # Use Node.js 18 or higher
 
-      - name: Install MongoDB Shell (mongosh)
+      - name: Install MongoDB Database Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y mongodb-mongosh
+          sudo apt-get install -y wget
+          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
+          sudo apt-get install -y ./mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
 
       - name: Install dependencies (Frontend)
         working-directory: ./frontend
@@ -57,7 +59,7 @@ jobs:
       - name: Verify MongoDB connection
         run: |
           echo "Testing MongoDB connection..."
-          mongosh --eval 'db.runCommand({ ping: 1 })'
+          mongo --eval 'db.runCommand({ ping: 1 })'
 
       - name: Run backend integration tests
         working-directory: ./backend
