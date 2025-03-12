@@ -27,6 +27,11 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Install MongoDB Shell (mongosh)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mongodb-mongosh
+
       - name: Install dependencies (Frontend)
         working-directory: ./frontend
         run: |
@@ -52,7 +57,7 @@ jobs:
       - name: Verify MongoDB connection
         run: |
           echo "Testing MongoDB connection..."
-          mongo --eval 'db.runCommand({ ping: 1 })'
+          mongosh --eval 'db.runCommand({ ping: 1 })'
 
       - name: Run backend integration tests
         working-directory: ./backend
