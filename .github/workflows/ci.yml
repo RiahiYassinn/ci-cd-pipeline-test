@@ -27,6 +27,9 @@ jobs:
         with:
           node-version: "16"
 
+      - name: List repository files
+        run: ls -R
+
       - name: Install dependencies (Frontend)
         run: |
           cd frontend
